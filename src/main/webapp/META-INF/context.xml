@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?> 
+<Context displayName="Dolphin-Sync" docBase="Dolphin-Sync" path="/Dolphin-Sync" reloadable="true">
+<!--                        MySQL                   -->
+<!--   <Resource name="jdbc/Java009Project" type="javax.sql.DataSource" -->
+<!--       username="lkk2" password="1599512" -->
+<!--       driverClassName="org.mariadb.jdbc.Driver" -->
+<!--       url="jdbc:mariadb://220.135.97.54:3307/lkk2" -->
+<!--       connectionProperties="useUnicode=yes;characterEncoding=utf8;useSSL=false" -->
+<!--       maxActive="8" -->
+<!--       maxIdle="4" -->
+<!--       maxWait="5000" -->
+<!--   />   -->
+</Context>

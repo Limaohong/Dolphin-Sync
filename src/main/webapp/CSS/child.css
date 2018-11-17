@@ -1,0 +1,119 @@
+.container{
+	position: relative;
+    top: -20px;
+    background-color: white;
+}
+#example {
+    /* 設定Header置頂 */
+    position: fixed;
+    z-index: 9000;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+.navbar {
+    padding-top: 30px;
+    padding-bottom: -10px;
+    transition: all 0.5s;
+ } 
+
+
+
+
+
+ul{
+	font-size: 18px;
+}
+.navbar-brand{
+	font-size: 24px;
+}
+
+#navtop{
+    height: 50px;
+}
+#panel, #flip {
+    padding: 5px;
+    text-align: center;
+    background-color: #e5eecc;
+    border: solid 1px #c3c3c3;
+}
+
+#panel {
+    padding: 50px;
+    display: none;
+}
+#hometop{
+    height: 80px;
+}
+#home{
+    background-color: white;
+    height:100%;
+    line-height:800px;
+}
+#blocktop{
+    height: 20px;
+    background-color: red;
+}
+/*#teacher{
+    background-color: #ffa7e8;
+    height:615px;
+    line-height:800px;
+}
+#bulletinboard{
+    background-color: #71ff53;
+    height:615px;
+    line-height:800px;
+}
+#contactus{
+    background-color: #fbff95;
+    height:615px;
+    line-height:800px;
+}*/
+#contactus{
+    background-color: #ffa7e8;
+    /*height:615px;*/
+    /*line-height:800px;*/
+}
+/*#transcript{
+    background-color: #529fff;
+    height:615px;
+    line-height:800px;
+}
+#system{
+    background-color: #fbff95;
+    height:615px;
+    line-height:800px;
+}*/
+
+ 
+/*自動彈跳下拉式選單*/
+/*.dropdown .dropdown-menu
+        {display: none;}
+.dropdown:hover .dropdown-menu
+        {display: block;}*/
+
+
+/*.section-body img{
+    position: relative;
+    left: 0px;
+
+    animation: slide 5s 3;
+
+}
+@keyframes slide{
+    0%{left: 0px;}
+    10%{left: 0px;}
+    20%{left: -300px;}
+    30%{left: -300px;}
+    40%{left: -600px;}
+    50%{left: -600px;}
+    60%{left: -900px;}
+    70%{left: -900px;}
+    80%{left: -1200px;}
+    90%{left: -1200px;}
+}*/
+
+
+/*師資*/
+
+/*師資*/

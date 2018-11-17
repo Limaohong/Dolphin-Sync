@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+
+	<!-- 開啟註釋功能 -->
+	<context:component-scan base-package="company,useraccount,student,classroom,contactbook,studentclass,fraction,bulletinboard,teacherpresentation" />
+		
+
+
+
+	<!-- DataBase -->
+	<bean id="dataSourceBasic"
+
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+<!-- 		<property name="url" -->
+<!-- 			value="jdbc:mysql://220.135.97.54:3307/lkk1?useUnicode=true&amp;characterEncoding=utf8" /> -->
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/lkk1?useUnicode=true&amp;characterEncoding=utf8" />
+		<property name="username" value="root" />
+		<property name="password" value="password" />
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="10" />
+	</bean>
+	
+	
+	
+<!-- 	<bean id="dataSource" -->
+<!-- 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!-- 		<property name="driverClassName" -->
+<!-- 			value="org.mariadb.jdbc.Driver" /> -->
+<!-- 		<property name="url" -->
+<!-- 			value="jdbc:mariadb://220.135.97.54:3307/lkk1?useUnicode=yes&amp;characterEncoding=utf-8&amp;useSSL=false" /> -->
+<!-- 		<property name="username" value="lkk1" /> -->
+<!-- 		<property name="password" value="1599511" /> -->
+<!-- 	</bean> -->
+
+	<!-- 定義jdbcTemplete類別，必須提供DataSource -->
+	<!-- <bean id="jdbcTemplete" class="org.springframework.jdbc.core.JdbcTemplate" -->
+	<!-- scope="singleton" p:dataSource-ref="dataSourceBasic"/> -->
+
+	<!-- Spring 將 Hibernate 的 SessionFactory 納入管理，可以注入的方式將到程式內， -->
+	<!-- DAO類別不需要撰寫開起與關閉 SessionFactory 的敘述 -->
+	<tx:annotation-driven />
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate" scope="singleton"
+		p:dataSource-ref="dataSourceBasic" />
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceBasic" />
+		<property name="packagesToScan" value="company,useraccount,student,classroom,contactbook,studentclass,fraction,bulletinboard,teacherpresentation" />
+		<property name="configLocation"
+			value="classpath:hibernate.cfg.xml" />
+	</bean>
+
+	<bean id='transactionManager'
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+</beans>
+
