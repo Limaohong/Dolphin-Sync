@@ -18,7 +18,10 @@ public interface bulletinboardService {
 	public Integer deletecomBoard(Integer BB_Id);
 	public int updateboard(bulletinboardBean bb, long sizeInBytes,classroomBean CR_ID);//修改佈告欄資料，含圖
 	public int updateboard(bulletinboardBean bb,classroomBean CR_ID);//修改佈告欄資料，不含圖
+	public int updatecomboard(bulletinboardBean bb, long sizeInBytes,String BB_SN);
+	public int updatecomboard(bulletinboardBean bb, String BB_SN);
 	public bulletinboardBean querysingleclassboard(classroomBean BB_CrId);
+	public bulletinboardBean querycompanyboard(String BB_SN);
 	public DemoboardBean loadsingleboard(bulletinboardBean bb);
 	public boolean ifclassexist(classroomBean cr_Id);
 }

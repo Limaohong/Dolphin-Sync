@@ -82,6 +82,8 @@
 					<a class="nav-item nav-link" href="teacher/choiceteacherdelete.jsp">師資刪除</a>	
 					<a class="nav-item nav-link" href="teacher/choiceteacher.jsp">師資修改</a>
 					<a class="nav-item nav-link" href="board/insertboard.jsp">公司佈告欄新增</a>	
+					<a class="nav-item nav-link" href="board/choicedeletecomboard.jsp">公司佈告欄刪除</a>	
+					<a class="nav-item nav-link" href="board/updateboard.jsp">公司佈告欄修改</a>	
 					<a class="nav-item nav-link" href="setting/update_slide.jsp">輪播圖修改</a>	
 				</c:when>
 				<c:when test="${LoginOK.UA_PL == 1}">
@@ -176,15 +178,15 @@
 				<div class="nav nav-tabs" id="nav-tab" role="tablist">
 					<c:forEach var="board" items="${Demoboard}">
 						<c:choose>
-							<c:when test="${board.BB_Id==1}">
-								<a class="nav-item nav-link active" id="nav-class${board.BB_Id}-tab"
-									data-toggle="tab" href="#nav-class${board.BB_Id}" role="tab"
-									aria-controls="nav-class${board.BB_Id}" aria-selected="true">${board.BB_SN}</a> 								
-							</c:when>
-							<c:otherwise>
+							<c:when test="${board.BB_CrId!=null}">
 								<a class="nav-item nav-link" id="nav-class${board.BB_Id}-tab" data-toggle="tab" 
 									href="#nav-class${board.BB_Id}" role="tab" aria-controls="nav-class${board.BB_Id}" 
-									aria-selected="false">${board.BB_SN}</a>
+									aria-selected="false">${board.BB_SN}</a>	 								
+							</c:when>
+							<c:otherwise>
+								<a class="nav-item nav-link active" id="nav-class${board.BB_Id}-tab"
+									data-toggle="tab" href="#nav-class${board.BB_Id}" role="tab"
+									aria-controls="nav-class${board.BB_Id}" aria-selected="true">${board.BB_SN}</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -194,7 +196,7 @@
 		<div class="tab-content" id="nav-tabContent">
 			<c:forEach varStatus="stVar"  var="board"  items="${Demoboard}" >
 				<c:choose>
-					<c:when test="${board.BB_Id==1}">
+					<c:when test="${board.BB_CrId==null}">
 						<div class="tab-pane fade show active" id="nav-class${board.BB_Id}" role="tabpanel"
 							aria-labelledby="#nav-class${board.BB_Id}-tab">
 							${board.BB_T1}<hr>

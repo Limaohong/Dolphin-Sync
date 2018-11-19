@@ -51,7 +51,9 @@ public class BoardupdateServlet extends HttpServlet{
 		
 		
 		
-		String Cr_Id = "";
+		String Cr_Id = null;
+		Integer CR_ID = null;
+		String BB_SN = null;
 		String BB_T1 = null;
 		String BB_T2 = null;
 		String BB_T3 = null;
@@ -264,16 +266,24 @@ public class BoardupdateServlet extends HttpServlet{
 		companyBean cb = null;
 		classroomBean clb = null;
 		cb = (companyBean) ub.getUA_CVC();
-		Integer CR_ID = Integer.parseInt(Cr_Id);
-		clb = cs.loadoneclassroom(CR_ID);
-		String BB_SN = cs.findClassroomName(CR_ID);
+		if(!Cr_Id.equals("")) {
+			CR_ID = Integer.parseInt(Cr_Id);				
+			BB_SN = cs.findClassroomName(CR_ID);
+			clb = cs.loadoneclassroom(CR_ID);
+		}else {
+			clb = null;
+			BB_SN = cb.getC_CN();
+		}			
 		
 		bulletinboardBean bb = new bulletinboardBean(cb,clb,BB_SN,BB_T1,BB_B1_C,BB_F1,
 				BB_FN1,BB_T2,BB_B2_C,BB_F2,BB_FN2,BB_T3,BB_B3_C,BB_F3,BB_FN3,BB_T4,BB_B4_C,
 				BB_F4,BB_FN4,BB_T5,BB_B5_C,BB_F5,BB_FN5);
-		
-		
-		int n = bs.updateboard(bb, sizeInBytes,clb);
+		int n = 0;
+		if(clb!=null) {
+			n = bs.updateboard(bb, sizeInBytes,clb);			
+		}else {
+			n = bs.updatecomboard(bb, sizeInBytes,BB_SN);
+		}
 		if(n == 1) {
 			msgOK.put("updateOK", "<Font color='red'>更改成功</Font>");
 			

@@ -67,6 +67,18 @@ public class bulletinboardServiceImpl implements bulletinboardService {
 	public Integer deletecomBoard(Integer BB_Id) {
 		return bd.deletecomBoard(BB_Id);
 	}
+	@Override
+	public bulletinboardBean querycompanyboard(String BB_SN) {
+		return bd.querycompanyboard(BB_SN);
+	}
+	@Override
+	public int updatecomboard(bulletinboardBean bb, long sizeInBytes, String BB_SN) {
+		return bd.updatecomboard(bb, sizeInBytes, BB_SN);
+	}
+	@Override
+	public int updatecomboard(bulletinboardBean bb, String BB_SN) {
+		return bd.updatecomboard(bb, BB_SN);
+	}
 	
 
 }

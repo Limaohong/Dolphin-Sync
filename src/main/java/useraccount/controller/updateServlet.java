@@ -6,6 +6,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,6 +26,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import bulletinboard.model.DemoboardBean;
+import bulletinboard.model.bulletinboardBean;
+import bulletinboard.service.bulletinboardService;
 import company.model.companyBean;
 import company.service.companyService;
 import init.util.GlobalService;
@@ -225,7 +229,7 @@ public class updateServlet extends HttpServlet {
 					WebApplicationContextUtils.findWebApplicationContext(sc);
 			userAccountService service = ctx.getBean(userAccountService.class);
 			companyService companyService = ctx.getBean(companyService.class);
-
+			bulletinboardService bulletinboardservice = ctx.getBean(bulletinboardService.class);
 
 			
 				if(UA_pl.equals("0")) {   //boss
@@ -235,10 +239,21 @@ public class updateServlet extends HttpServlet {
 					UA_PL = UA_PL.parseInt(UA_pl);
 					userAccountBean mem = new userAccountBean(UA_Acu, UA_Psw, UA_Name, UA_Phone, UA_Avater);
 					companyBean com = new companyBean(C_CL,C_CN,C_CP,UA_VC);
+					companyBean comold = (companyBean) session.getAttribute("LoginCom");
+					String oldcomname = comold.getC_CN();
+					List<DemoboardBean> Demoboard = null;
+					int b = 0;
+					if(!C_CN.equals(oldcomname)) {
+						bulletinboardBean bb = bulletinboardservice.querycompanyboard(oldcomname);
+						bb.setBB_SN(C_CN);
+						b = bulletinboardservice.updatecomboard(bb, oldcomname);
+					}else {
+						b = 1;
+					}
 					int n = service.updatemem(mem, UA_Avater_sizeInBytes);
 					int c = companyService.updatecom(com, C_CL_sizeInBytes);
 					
-					if (n == 1 && c ==1 ) {    //如果兩table都更新成功的話
+					if (n == 1 && c ==1 && b ==1) {    //如果兩table都更新成功的話
 						msgOK.put("updateOK", "<Font color='red'>更改成功</Font>");
 						
 						try {	//重新給予更新過後的useraccount&company值						
@@ -250,7 +265,10 @@ public class updateServlet extends HttpServlet {
 							if(com!=null) {
 								session.setAttribute("LoginCom", com);
 							}
-						
+							Demoboard = bulletinboardservice.loadbulletinboard_boss(com);
+							if(Demoboard!=null) {
+								session.setAttribute("Demoboard", Demoboard);
+							}
 						}catch(RuntimeException e) {
 							errorMsg.put("LoginError", e.getMessage());
 						}
