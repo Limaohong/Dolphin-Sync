@@ -97,6 +97,9 @@
 					<a class="nav-item nav-link" href="studentclass/choiceclassroom.jsp">教室狀況查詢</a>	
 					<a class="nav-item nav-link" href="student/choiceclassroom.jsp">班級學員新增</a>	
 				</c:when>
+				<c:when test="${LoginOK.UA_PL == 2}">
+					<a class="nav-item nav-link" href="setting/update_parent.jsp">家長基本資料修改</a>
+				</c:when>
 			</c:choose>	      	
 	        
 	      </div>

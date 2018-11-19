@@ -170,33 +170,49 @@ public class updateServlet extends HttpServlet {
 			 
 			// 2. 進行必要的資料轉換
 			// (無)
-			// 3. 檢查使用者輸入資料			
-			if (UA_Psw == null || UA_Psw.trim().length() == 0) {
-				errorMsg.put("errorPasswordEmpty", "密碼欄必須輸入");
-			}
-			if (UA_Psw2 == null || UA_Psw2.trim().length() == 0) {
-				errorMsg.put("errorPassword2Empty", "密碼確認欄必須輸入");
-			}
-			if (UA_Psw.trim().length() > 0 && UA_Psw2.trim().length() > 0) {
-				if (!UA_Psw.trim().equals(UA_Psw2.trim())) {
-					errorMsg.put("errorPassword2Empty", "密碼欄必須與確認欄一致");
-					errorMsg.put("errorPasswordEmpty", "*");
+			// 3. 檢查使用者輸入資料
+			if(UA_pl.equals("0") || UA_pl.equals("1")) {
+				
+				if (UA_Psw == null || UA_Psw.trim().length() == 0) {
+					errorMsg.put("errorPasswordEmpty", "密碼欄必須輸入");
 				}
-			}
-
-			if (UA_Name == null || UA_Name.trim().length() == 0) {
-				errorMsg.put("errorName", "姓名欄必須輸入");
-			}
-			if (UA_Phone == null || UA_Phone.trim().length() == 0) {
-				errorMsg.put("errorTel", "電話號碼欄必須輸入");
-			}
-			if(UA_pl.equals("0")) {
-				if (C_CN == null || C_CN.trim().length() == 0) {
-					errorMsg.put("errorComName", "公司欄必須輸入");
+				if (UA_Psw2 == null || UA_Psw2.trim().length() == 0) {
+					errorMsg.put("errorPassword2Empty", "密碼確認欄必須輸入");
 				}
-				if (C_CP == null || C_CP.trim().length() == 0) {
-					errorMsg.put("errorComTel", "公司電話欄必須輸入");
-				}				
+				if (UA_Psw.trim().length() > 0 && UA_Psw2.trim().length() > 0) {
+					if (!UA_Psw.trim().equals(UA_Psw2.trim())) {
+						errorMsg.put("errorPassword2Empty", "密碼欄必須與確認欄一致");
+						errorMsg.put("errorPasswordEmpty", "*");
+					}
+				}
+				
+				if (UA_Name == null || UA_Name.trim().length() == 0) {
+					errorMsg.put("errorName", "姓名欄必須輸入");
+				}
+				if (UA_Phone == null || UA_Phone.trim().length() == 0) {
+					errorMsg.put("errorTel", "電話號碼欄必須輸入");
+				}
+				if(UA_pl.equals("0")) {
+					if (C_CN == null || C_CN.trim().length() == 0) {
+						errorMsg.put("errorComName", "公司欄必須輸入");
+					}
+					if (C_CP == null || C_CP.trim().length() == 0) {
+						errorMsg.put("errorComTel", "公司電話欄必須輸入");
+					}				
+				}
+			}else if(UA_pl.equals("2")) {
+				if (UA_Psw == null || UA_Psw.trim().length() == 0) {
+					errorMsg.put("errorPasswordEmpty", "密碼欄必須輸入");
+				}
+				if (UA_Psw2 == null || UA_Psw2.trim().length() == 0) {
+					errorMsg.put("errorPassword2Empty", "密碼確認欄必須輸入");
+				}
+				if (UA_Psw.trim().length() > 0 && UA_Psw2.trim().length() > 0) {
+					if (!UA_Psw.trim().equals(UA_Psw2.trim())) {
+						errorMsg.put("errorPassword2Empty", "密碼欄必須與確認欄一致");
+						errorMsg.put("errorPasswordEmpty", "*");
+					}
+				}
 			}
 		}else {
 			errorMsg.put("errTitle", "此表單不是上傳檔案的表單");
@@ -220,6 +236,9 @@ public class updateServlet extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("update_teacher.jsp");
 				rd.forward(request, response);
 				
+			}else if(UA_pl.equals("2")) {
+				RequestDispatcher rd = request.getRequestDispatcher("update_parent.jsp");
+				rd.forward(request, response);
 			}
 			return;
 		}
@@ -235,8 +254,6 @@ public class updateServlet extends HttpServlet {
 				if(UA_pl.equals("0")) {   //boss
 					userAccountBean uab = (userAccountBean) session.getAttribute("LoginOK");
 					UA_VC = uab.getUA_VC();
-					Integer UA_PL = 0;
-					UA_PL = UA_PL.parseInt(UA_pl);
 					userAccountBean mem = new userAccountBean(UA_Acu, UA_Psw, UA_Name, UA_Phone, UA_Avater);
 					companyBean com = new companyBean(C_CL,C_CN,C_CP,UA_VC);
 					companyBean comold = (companyBean) session.getAttribute("LoginCom");
@@ -278,10 +295,7 @@ public class updateServlet extends HttpServlet {
 						errorMsg.put("errorIDDup", "更新此筆資料有誤(UpdateServlet)");
 					}
 					
-				}else if(UA_pl.equals("1")){  //teacher
-						
-						Integer UA_PL = 0;
-						UA_PL = UA_PL.parseInt(UA_pl);
+				}else if(UA_pl.equals("1")){  //teacher						
 						
 						userAccountBean mem = new userAccountBean(UA_Acu, UA_Psw, UA_Name, UA_Phone, UA_Avater);
 						int n = service.updatemem(mem, UA_Avater_sizeInBytes);
@@ -302,6 +316,27 @@ public class updateServlet extends HttpServlet {
 							errorMsg.put("errorIDDup", "更新此筆資料有誤(UpdateServlet)");
 						}
 					
+				}else if(UA_pl.equals("2")) {  //Parent
+					userAccountBean mem = (userAccountBean) session.getAttribute("LoginOK");
+					mem.setUA_Psw(UA_Psw);
+					mem.setUA_Avater(UA_Avater);
+					int n = service.updatemem(mem, UA_Avater_sizeInBytes);
+					if (n == 1) {
+						msgOK.put("UpdateOK", "<Font color='red'>更新成功，請開始使用本系統</Font>");
+
+						try {	//重新給予更新過後的useraccount值						
+							mem = service.checkIDPassword(UA_Acu, UA_Psw);
+							if(mem!=null) {
+								session.setAttribute("LoginOK", mem);							
+							}							
+						}catch(RuntimeException e) {
+							errorMsg.put("LoginError", e.getMessage());
+						}
+						response.sendRedirect("../index.jsp");
+						
+					} else {
+						errorMsg.put("errorIDDup", "更新此筆資料有誤(UpdateServlet)");
+					}
 				}
 
 			
@@ -324,6 +359,9 @@ public class updateServlet extends HttpServlet {
 			} else if(UA_pl.equals("1")) {
 				RequestDispatcher rd = request.getRequestDispatcher("update_teacher.jsp");
 				rd.forward(request, response);				
+			} else if(UA_pl.equals("2")) {
+				RequestDispatcher rd = request.getRequestDispatcher("update_parent.jsp");
+				rd.forward(request, response);
 			}
 		}
 	}
