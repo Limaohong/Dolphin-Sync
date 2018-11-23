@@ -238,14 +238,14 @@ public class ImportData {
 
 					for (classroomBean cb : classrooms) {
 						if (cb.getCr_Name().equals(sa[0].trim())) {
-							bean.setSC_CI(cb.getCr_Id());
+							bean.setSC_CI(cb);
 							break;
 						}
 					}
 					bean.setSC_CN(sa[0].trim());
 					for (studentBean sb : students) {
 						if (sb.getS_Name().equals(sa[1].trim())) {
-							bean.setSC_SI(sb.getS_Id());
+							bean.setSC_SI(sb);
 							break;
 						}
 					}

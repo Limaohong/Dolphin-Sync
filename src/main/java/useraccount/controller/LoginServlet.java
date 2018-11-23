@@ -26,6 +26,11 @@ import classroom.model.classroomBean;
 import classroom.service.classroomService;
 import company.model.companyBean;
 import company.service.companyService;
+import fraction.model.fractionBean;
+import fraction.model.fractionDemo;
+import fraction.service.FractionService;
+import student.model.studentBean;
+import student.service.StudentService;
 import teacherpresentation.model.DemoTeacher;
 import teacherpresentation.service.teacherpresentationService;
 import useraccount.model.userAccountBean;
@@ -107,10 +112,12 @@ public class LoginServlet extends HttpServlet {
 						}
 						userAccountBean ua = null;
 						companyBean cb = null;
+						studentBean sb = null;
 						List<classroomBean> clsb = null;
 						List<bulletinboardBean> bb = null;
 						List<DemoboardBean> Demoboard = null;
 						List<DemoTeacher> DemoTeacher = null;
+						List<fractionDemo> fractionDemo = null;
 //						loginService ls = new loginServiceImpl();
 						ServletContext sc = getServletContext();
 						WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(sc);
@@ -119,6 +126,8 @@ public class LoginServlet extends HttpServlet {
 						classroomService cls = ctx.getBean(classroomService.class);
 						bulletinboardService bs = ctx.getBean(bulletinboardService.class);
 						teacherpresentationService ts = ctx.getBean(teacherpresentationService.class);
+						FractionService fs = ctx.getBean(FractionService.class);
+						StudentService ss = ctx.getBean(StudentService.class);
 						try {							
 							ua = ls.checkIDPassword(UA_Acu, UA_Psw);
 							if(ua!=null) {
@@ -147,6 +156,8 @@ public class LoginServlet extends HttpServlet {
 									cb = cs.loadcompany_parent(ua.getUA_CVC().getC_VC());
 									Demoboard = bs.loadbulletinboard_parent(cb);
 									DemoTeacher = ts.loadteacher_parent(cb);
+									sb = ss.queryStudent(ua);
+									fractionDemo = fs.loadFraction(sb);
 								}
 							
 							if(cb!=null) {
@@ -168,6 +179,11 @@ public class LoginServlet extends HttpServlet {
 								session.setAttribute("loadclassroom", clsb);
 								}else {
 									System.out.println("沒抓到loadclassroom的資料");
+								}
+							if(fractionDemo!=null) {
+								session.setAttribute("fractionDemo", fractionDemo);
+								}else {
+									System.out.println("沒抓到fractionDemo的資料");
 								}
 						}catch(RuntimeException e) {
 							errorMsgMap.put("LoginError", e.getMessage());

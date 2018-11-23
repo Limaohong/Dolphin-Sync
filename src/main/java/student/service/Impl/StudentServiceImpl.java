@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import classroom.model.classroomBean;
 import student.model.studentBean;
 import student.repository.Studentdao;
 import student.service.StudentService;
@@ -19,7 +20,7 @@ public class StudentServiceImpl implements StudentService {
 	Studentdao dao;
 
 	@Override
-	public List<studentBean> findstudents(Integer SC_CI) {
+	public List<studentBean> findstudents(classroomBean SC_CI) {
 		return dao.findstudents(SC_CI);
 	}
 
@@ -31,5 +32,10 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public studentBean queryStudent(userAccountBean S_Phone) {
 		return dao.queryStudent(S_Phone);
+	}
+
+	@Override
+	public studentBean queryStudent(Integer S_Id) {
+		return dao.queryStudent(S_Id);
 	}
 }

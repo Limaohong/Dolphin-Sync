@@ -51,14 +51,14 @@ public class CheckClassServlet extends HttpServlet {
 		Integer Cr_Id = Integer.parseInt(cr_Id);
 		String name = cs.findClassroomName(Cr_Id);
 		classroomBean cb = cs.loadoneclassroom(Cr_Id);
-		num= scs.numofstudent(Cr_Id);
+		num= scs.numofstudent(cb);
 		String num_s = num.toString();
 		roomstate.put("numofstudent", num_s);
 		roomstate.put("nameofclass", name);
 		session.setAttribute("roomstate", roomstate);
 //========================================================================
 		//找出學生姓名與電話
-		List<studentBean> studentBeanlist = ss.findstudents(Cr_Id);
+		List<studentBean> studentBeanlist = ss.findstudents(cb);
 		session.setAttribute("studentBeanlist", studentBeanlist);
 		//找出家長姓名				
 		List<userAccountBean> userbeanlist = us.findParentsName(studentBeanlist);

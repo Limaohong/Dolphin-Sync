@@ -30,6 +30,7 @@ public class fractionBean implements Serializable {
 	studentBean F_SId;
 	@Column(precision = 5, scale = 2)
 	BigDecimal F_Fraction;
+	String F_Exam;
 	Integer F_Subject;
 	@CreationTimestamp
 	Timestamp F_RD;
@@ -40,11 +41,24 @@ public class fractionBean implements Serializable {
 		
 	}
 
-	public fractionBean(studentBean f_SId, BigDecimal f_Fraction, Integer f_Subject) {
+	
+
+	public fractionBean(studentBean f_SId, BigDecimal f_Fraction, String f_Exam, Integer f_Subject) {
 		super();
 		F_SId = f_SId;
 		F_Fraction = f_Fraction;
+		F_Exam = f_Exam;
 		F_Subject = f_Subject;
+	}
+
+
+
+	public String getF_Exam() {
+		return F_Exam;
+	}
+
+	public void setF_Exam(String f_Exam) {
+		F_Exam = f_Exam;
 	}
 
 	public Integer getF_Id() {
@@ -97,9 +111,11 @@ public class fractionBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "fractionBean [F_Id=" + F_Id + ", F_SId=" + F_SId + ", F_Fraction=" + F_Fraction + ", F_Subject="
-				+ F_Subject + ", F_RD=" + F_RD + ", F_LM=" + F_LM + "]";
+		return "fractionBean [F_Id=" + F_Id + ", F_SId=" + F_SId + ", F_Fraction=" + F_Fraction + ", F_Exam=" + F_Exam
+				+ ", F_Subject=" + F_Subject + ", F_RD=" + F_RD + ", F_LM=" + F_LM + "]";
 	}
+
+	
 
 	
 	

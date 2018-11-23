@@ -2,6 +2,8 @@ package studentclass.service.Impl;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +20,7 @@ public class StudentClassServiceImpl implements StudentClassService {
 	StudentClassDao dao;
 
 	@Override
-	public Integer numofstudent(Integer SC_CI) {
+	public Integer numofstudent(classroomBean SC_CI) {
 		return dao.numofstudent(SC_CI);
 	}
 
@@ -28,9 +30,16 @@ public class StudentClassServiceImpl implements StudentClassService {
 	}
 
 	@Override
-	public Integer deleteStudentClass(Integer SC_CI) {
+	public Integer deleteStudentClass(classroomBean SC_CI) {
 		return dao.deleteStudentClass(SC_CI);
 	}
+
+	@Override
+	public List<studentclassBean> querystudentclass(classroomBean SC_CI) {
+		return dao.querystudentclass(SC_CI);
+	}
+
+	
 
 
 	

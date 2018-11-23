@@ -76,7 +76,7 @@ public class updateServlet extends HttpServlet {
 	private Pattern pattern = null;
 	private Matcher matcher = null;
 
-	@SuppressWarnings("static-access")
+	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8"); // 文字資料轉內碼
 		// 準備存放錯誤訊息的Map物件

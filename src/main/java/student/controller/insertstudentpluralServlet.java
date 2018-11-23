@@ -127,7 +127,7 @@ public class insertstudentpluralServlet extends HttpServlet {
 									Integer S_Id = singleStudent.getS_Id();
 									Integer SC_CI = Integer.parseInt(Cr_Id);
 									classroomBean clb = cls.loadoneclassroom(SC_CI);
-									studentclassBean studentclassbean = new studentclassBean(SC_CI,clb.getCr_Name(),S_Id,singleStudent.getS_Name());
+									studentclassBean studentclassbean = new studentclassBean(clb,clb.getCr_Name(),singleStudent,singleStudent.getS_Name());
 									
 									studentclassInsert = scs.saveStudentClass(studentclassbean);
 									if(studentclassInsert==1) {

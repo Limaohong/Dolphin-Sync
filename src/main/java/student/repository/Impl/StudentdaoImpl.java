@@ -21,7 +21,7 @@ public class StudentdaoImpl implements Studentdao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<studentBean> findstudents(Integer SC_CI) {
+	public List<studentBean> findstudents(classroomBean SC_CI) {
 		Session session = factory.getCurrentSession();
 		List<studentclassBean> studentclassBeanlist = null;
 		String hql = "FROM studentclassBean WHERE SC_CI=:scci";
@@ -30,7 +30,7 @@ public class StudentdaoImpl implements Studentdao {
 		studentBean studentBean = null;
 		String hql2 = "FROM studentBean WHERE S_Id=:id";
 		for(studentclassBean sc:studentclassBeanlist) {
-			studentBean = (student.model.studentBean) session.createQuery(hql2).setParameter("id", sc.getSC_SI()).getSingleResult();
+			studentBean = (student.model.studentBean) session.createQuery(hql2).setParameter("id", sc.getSC_SI().getS_Id()).getSingleResult();
 			studentBeanlist.add(studentBean);
 		}
 		
@@ -79,6 +79,19 @@ public class StudentdaoImpl implements Studentdao {
 		studentBean studentbean = null;
 		String hql = "FROM studentBean WHERE S_Phone=:s_Phone";
 		sb = session.createQuery(hql).setParameter("s_Phone", S_Phone).getResultList();
+		studentbean = (sb.isEmpty())?null:sb.get(0);
+		return studentbean;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public studentBean queryStudent(Integer S_Id) {
+		Session session = factory.getCurrentSession();
+		List<studentBean> sb = null;
+		studentBean studentbean = null;
+		String hql = "FROM studentBean WHERE S_Id=:s_Id";
+		sb = session.createQuery(hql).setParameter("s_Id", S_Id).getResultList();
 		studentbean = (sb.isEmpty())?null:sb.get(0);
 		return studentbean;
 	}

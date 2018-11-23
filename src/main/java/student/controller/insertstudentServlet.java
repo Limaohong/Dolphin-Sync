@@ -109,7 +109,7 @@ public class insertstudentServlet extends HttpServlet {
 		//String classname = cls.findClassroomName(SC_CI);
 		//classroomBean cb = new classroomBean(classname,ub);
 		//studentclassBean studentclassbean = new studentclassBean(cb,classname,singleStudent,S_Name);
-		studentclassBean studentclassbean = new studentclassBean(SC_CI,cb.getCr_Name(),singleStudent.getS_Id(),S_Name);
+		studentclassBean studentclassbean = new studentclassBean(cb,cb.getCr_Name(),singleStudent,S_Name);
 		Integer studentclassInsert = 0;
 		
 		studentclassInsert = scs.saveStudentClass(studentclassbean);

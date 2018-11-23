@@ -18,7 +18,7 @@ public class StudentClassDaoImpl implements StudentClassDao {
 	SessionFactory factory;
 	
 	@Override
-	public Integer numofstudent(Integer SC_CI) {
+	public Integer numofstudent(classroomBean SC_CI) {
 		Integer n = 0;
 		Session session = factory.getCurrentSession();
 		String hql = "Select count(SC_CI) FROM studentclassBean WHERE SC_CI = :scci";
@@ -39,7 +39,7 @@ public class StudentClassDaoImpl implements StudentClassDao {
 	}
 
 	@Override
-	public Integer deleteStudentClass(Integer SC_CI) {
+	public Integer deleteStudentClass(classroomBean SC_CI) {
 		Session session = factory.getCurrentSession();
 		String hql ="DELETE studentclassBean WHERE SC_CI=:scci";
 		Integer n = 0;
@@ -47,6 +47,16 @@ public class StudentClassDaoImpl implements StudentClassDao {
 		n++;
 		
 		return n;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<studentclassBean> querystudentclass(classroomBean SC_CI) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM studentclassBean WHERE SC_CI=:crid";
+		List<studentclassBean> list = null;
+		list = session.createQuery(hql).setParameter("crid", SC_CI).getResultList();
+		return list;
 	}
 
 }

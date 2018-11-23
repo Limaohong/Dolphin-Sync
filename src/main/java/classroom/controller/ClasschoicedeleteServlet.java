@@ -60,7 +60,7 @@ public class ClasschoicedeleteServlet extends HttpServlet {
 		ub = (userAccountBean) session.getAttribute("LoginOK");
 		combean = (companyBean) session.getAttribute("LoginCom");
 		cbbean = cs.loadoneclassroom(cr_Id);
-			n1 = scs.deleteStudentClass(cr_Id);
+			n1 = scs.deleteStudentClass(cbbean);
 			n3 = bs.deleteBoard(cbbean);
 			n2 = cs.classDelete(cr_Id);
 			if(n1==1 && n2==1 && n3==1) {

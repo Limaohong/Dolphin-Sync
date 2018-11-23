@@ -44,7 +44,7 @@
 				<a class="nav-item nav-link" href="#">首頁</a> 
 				<a class="nav-item nav-link" href="#">師資介紹</a> 
 				<a class="nav-item nav-link" href="#">佈告欄</a> 
-				<a class="nav-item nav-link" href="#">成績單</a> 
+				<a class="nav-item nav-link" href="fraction/fraction.jsp">成績單</a> 
 				<a class="nav-item nav-link" href="#">聯絡我們</a>
 					<c:if test="${! empty LoginOK}">
 						<img height='40px' width='30px'
@@ -91,6 +91,8 @@
 					<a class="nav-item nav-link" href="board/choiceinsertclass.jsp">班級佈告欄新增</a>	
 					<a class="nav-item nav-link" href="board/choicedeleteclass.jsp">班級佈告欄刪除</a>	
 					<a class="nav-item nav-link" href="board/choiceclass.jsp">班級佈告欄修改</a>	
+					<a class="nav-item nav-link" href="fraction/choiceclassroom.jsp">班級成績新增</a>	
+					<a class="nav-item nav-link" href="fraction/teacherchoiceclasslook.jsp">班級成績查詢</a>	
 					<a class="nav-item nav-link" href="classroom/classinsert.jsp">教室新增</a>	
 					<a class="nav-item nav-link" href="classroom/choiceclassroom.jsp">教室名稱修改</a>	
 					<a class="nav-item nav-link" href="classroom/choiceclassroomdelete.jsp">教室刪除</a>	
